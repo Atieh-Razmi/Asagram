@@ -1,0 +1,9 @@
+<Solution>
+  <Project Path="Application/Application.csproj" />
+  <Project Path="AsaGram.Presentiation/AsaGram.Presentiation.csproj" Id="e6d8789f-141a-4283-b24b-3ea663351197" />
+  <Project Path="Asagram/Asagram.csproj" />
+  <Project Path="Entities/Entities.csproj" />
+  <Project Path="Repository/Repository.csproj" />
+  <Project Path="Service/Service.csproj" Id="dfafc3c2-9ada-46d7-9cec-2c2d8dec5846" />
+  <Project Path="Shared/Shared.csproj" />
+</Solution>

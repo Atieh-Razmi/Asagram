@@ -1,0 +1,11 @@
+﻿using Entities.Models;
+using MediatR;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Application.Queries
+{
+    public record DownloadFileQuery(Guid id) : IRequest<AppFile>;
+    
+}

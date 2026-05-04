@@ -1,0 +1,6 @@
+@Asagram_HostAddress = http://localhost:5133
+
+GET {{Asagram_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
