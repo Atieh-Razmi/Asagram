@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Entities.Models;
+using MediatR;
 using Shared.DataTransferObjects;
 using Shared.RequestFeatures;
 using System;
@@ -7,6 +8,6 @@ using System.Text;
 
 namespace Application.Queries
 {
-    public record GetProvincesQuery(ProvinceParameters provincesParameters) : IRequest<PagedList<ProvinceDTO>>;
+    public record GetProvincesQuery(ProvinceParameters provincesParameters) : IRequest<PagedList<ProvinceresponseDTO>>;
     
 }

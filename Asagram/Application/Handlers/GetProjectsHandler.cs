@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Application.Handlers
 {
-    public class GetProjectsHandler : IRequestHandler<GetProjectsQuery, IEnumerable<ProjectDTO>>
+    public class GetProjectsHandler : IRequestHandler<GetProjectsQuery, IEnumerable<ProjectResponseDTO>>
     {
 
         private readonly IMapper _mapper;
@@ -20,10 +20,10 @@ namespace Application.Handlers
             _mapper = mapper;
             _repository = repository;
         }
-        public async Task<IEnumerable<ProjectDTO>> Handle(GetProjectsQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<ProjectResponseDTO>> Handle(GetProjectsQuery request, CancellationToken cancellationToken)
         {
             var projects = await _repository.Projects.ToListAsync(cancellationToken);
-            var projectsDTO = _mapper.Map<IEnumerable<ProjectDTO>>(projects);
+            var projectsDTO = _mapper.Map<IEnumerable<ProjectResponseDTO>>(projects);
             return projectsDTO;
         }
     }

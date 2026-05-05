@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces;
 using Application.Queries;
 using AutoMapper;
+using Entities.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Shared.DataTransferObjects;
@@ -11,7 +12,7 @@ using System.Text;
 
 namespace Application.Handlers
 {
-    public class GetProviceHandler:IRequestHandler<GetProvincesQuery, PagedList<ProvinceDTO>>
+    public class GetProviceHandler:IRequestHandler<GetProvincesQuery, PagedList<ProvinceresponseDTO>>
     {
         private readonly IRepositoryContext _repository;
         private readonly IMapper _mapper;
@@ -22,7 +23,7 @@ namespace Application.Handlers
 
         }
 
-        public async Task<PagedList<ProvinceDTO>> Handle(GetProvincesQuery request, CancellationToken cancellationToken)
+        public async Task<PagedList<ProvinceresponseDTO>> Handle(GetProvincesQuery request, CancellationToken cancellationToken)
         {
             var query = _repository.Provinces;
             var count =await query.CountAsync(cancellationToken);
@@ -30,8 +31,8 @@ namespace Application.Handlers
                 .Take(request.provincesParameters.PageSize)
                 .ToListAsync(cancellationToken);
 
-            var provinceDTOs = _mapper.Map<List<ProvinceDTO>>(provinces);
-            return new PagedList<ProvinceDTO>(provinceDTOs, count, request.provincesParameters.PageNumber, request.provincesParameters.PageSize);
+            var provinceDTOs = _mapper.Map<List<ProvinceresponseDTO>>(provinces);
+            return new PagedList<ProvinceresponseDTO>(provinceDTOs, count, request.provincesParameters.PageNumber, request.provincesParameters.PageSize);
 
         }
     }

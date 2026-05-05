@@ -6,6 +6,7 @@ namespace Shared.DataTransferObjects
 {
     public record BankAccountDTO
     {
+        public Guid Id { get; set; }
         public string? Title { get; set; }
         public string? BankName { get; set; }
         public string? ShabaNumber { get; set; }

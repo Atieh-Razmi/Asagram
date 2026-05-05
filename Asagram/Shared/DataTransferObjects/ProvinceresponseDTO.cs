@@ -4,10 +4,9 @@ using System.Text;
 
 namespace Shared.DataTransferObjects
 {
-    public record CityDTO
+    public record ProvinceresponseDTO
     {
         public Guid Id { get; set; }
         public string? Name { get; set; }
-        public string? ProvinceName { get; set; }
     }
 }

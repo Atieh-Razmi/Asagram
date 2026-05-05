@@ -59,7 +59,9 @@ namespace Asagram
             CreateMap<ProgramEntity, ProgramResponseDTO>().ReverseMap();
             CreateMap<ProfileCreateDTO, User>();
             CreateMap<User, ProfileDTO>();
+            CreateMap<Province, ProvinceresponseDTO>();
             CreateMap<Role, RoleDTO>().ReverseMap();
+            CreateMap<Project, ProjectResponseDTO>().ReverseMap();
 
         }
     }

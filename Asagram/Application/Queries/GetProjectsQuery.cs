@@ -6,6 +6,6 @@ using System.Text;
 
 namespace Application.Queries
 {
-    public record GetProjectsQuery() : IRequest<IEnumerable<ProjectDTO>>;
+    public record GetProjectsQuery() : IRequest<IEnumerable<ProjectResponseDTO>>;
     
 }
