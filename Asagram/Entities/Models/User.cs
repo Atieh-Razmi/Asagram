@@ -36,5 +36,6 @@ namespace Entities.Models
 
         public AppFile? ProfileImage { get; set; }
         public Guid? ProfileImageId { get; set; }
+        public ICollection<Leave> Leaves { get; set; }
     }
 }

@@ -30,6 +30,7 @@ namespace Repository
         public DbSet<Project> Projects { get; set; }
 
         public DbSet<ProgramEntity> Programs { get; set; }
+        public DbSet<Leave> Leaves { get; set; }
 
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -60,6 +61,7 @@ namespace Repository
             modelBuilder.ApplyConfiguration(new ContactConfiguration());
             modelBuilder.ApplyConfiguration(new CustomerConfiguration());
             modelBuilder.ApplyConfiguration(new projectConfiguration());
+            modelBuilder.ApplyConfiguration(new LeaveConfiguration());
 
         }
     }

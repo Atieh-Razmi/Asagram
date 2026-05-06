@@ -62,6 +62,11 @@ namespace Asagram
             CreateMap<Province, ProvinceresponseDTO>();
             CreateMap<Role, RoleDTO>().ReverseMap();
             CreateMap<Project, ProjectResponseDTO>().ReverseMap();
+            CreateMap<LeaveForCreateDTO, Leave>();
+            CreateMap<Leave, LeaveResponseDTO>();
+            CreateMap<Leave, AdminLeaveResponseDTO>()
+                .ForMember(dest => dest.Fullname, opt => opt.MapFrom(x => x.User.FirstName + " " + x.User.LastName));
+            CreateMap<Leave, UserLeaveResponseDTO>();
 
         }
     }
