@@ -13,7 +13,8 @@ namespace Entities.Models
 
         public ICollection<ProgramEntity> Programs { get; set; } = new List<ProgramEntity>();
 
+        public ICollection<OverTime> OverTimes { get; set; } = new List<OverTime>(); 
 
-        
+
     }
 }

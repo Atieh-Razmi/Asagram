@@ -15,14 +15,17 @@ namespace Application.Handlers
     {
         private readonly IMapper _mapper;
         private readonly IRepositoryContext _repository;
-        public GetUserSideLeavesHandler(IMapper mapper, IRepositoryContext repository)
+        private readonly ICurrentUserService _currentUserService;
+        public GetUserSideLeavesHandler(IMapper mapper, IRepositoryContext repository, ICurrentUserService currentUserService)
         {
             _repository = repository;
             _mapper = mapper;
+            _currentUserService = currentUserService;
         }
         public async Task<PagedList<UserLeaveResponseDTO>> Handle(GetUserSideLeavesQuery request, CancellationToken cancellationToken)
         {
-            var query = _repository.Leaves.Where(c => c.UserId == request.id).AsNoTracking();
+            var userId = _currentUserService.UserId;
+            var query = _repository.Leaves.Where(c => c.UserId == userId).AsNoTracking();
             //.FilterUserLeaves(request.userLeaveParameters);
             var count = await query.CountAsync();
             var leaves = await query.Skip((request.userLeaveParameters.PageNumber - 1) * request.userLeaveParameters.PageSize)

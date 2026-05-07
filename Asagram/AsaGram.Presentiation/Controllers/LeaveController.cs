@@ -37,10 +37,10 @@ namespace AsaGram.Presentiation.Controllers
             return Ok(new { Leaves = results, MetaData = results.MetaData });
         }
 
-        [HttpGet("{id:guid}/user-page")]
-        public async Task<IActionResult> GetUserLeaves(Guid id, [FromQuery] UserLeaveParameters userLeaveParameters)
+        [HttpGet("user-page")]
+        public async Task<IActionResult> GetUserLeaves([FromQuery] UserLeaveParameters userLeaveParameters)
         {
-            var results = await _sender.Send(new GetUserSideLeavesQuery(id,userLeaveParameters));
+            var results = await _sender.Send(new GetUserSideLeavesQuery(userLeaveParameters));
             Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(results.MetaData));
             return Ok(new { Leaves = results, MetaData = results.MetaData });
         }

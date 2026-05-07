@@ -1,9 +1,11 @@
 using Application.Behaviers;
+using Application.Interfaces;
 using Asagram.Extensions;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Repository;
+using Service;
 
 
 
@@ -29,6 +31,9 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>),
 typeof(ValidationBehavior<,>));
 builder.Services.AddValidatorsFromAssembly(typeof(Application.AssemblyReference).Assembly);
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
+
 
 
 var app = builder.Build();

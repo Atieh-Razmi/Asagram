@@ -5,6 +5,6 @@ using System.Text;
 
 namespace Application.Commands
 {
-    public record LogoutUserCommand() : IRequest<Unit>;
+    public record CreateCheckInCommand() : IRequest<Unit>;
     
 }

@@ -42,9 +42,9 @@ namespace AsaGram.Presentiation.Controllers
         }
 
         [HttpPost("logout")]
-        public async Task<IActionResult> Logout(Guid Id)
+        public async Task<IActionResult> Logout()
         {
-            var result = await _sender.Send(new LogoutUserCommand(Id));
+            var result = await _sender.Send(new LogoutUserCommand());
             return NoContent();
         }
 

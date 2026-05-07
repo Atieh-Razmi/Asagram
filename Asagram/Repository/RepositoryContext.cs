@@ -32,6 +32,9 @@ namespace Repository
         public DbSet<ProgramEntity> Programs { get; set; }
         public DbSet<Leave> Leaves { get; set; }
 
+        public DbSet<OverTime> OverTimes { get; set; }
+       
+
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         => base.SaveChangesAsync(cancellationToken);
@@ -62,6 +65,8 @@ namespace Repository
             modelBuilder.ApplyConfiguration(new CustomerConfiguration());
             modelBuilder.ApplyConfiguration(new projectConfiguration());
             modelBuilder.ApplyConfiguration(new LeaveConfiguration());
+            modelBuilder.ApplyConfiguration(new OverTimeConfiguration());
+            
 
         }
     }

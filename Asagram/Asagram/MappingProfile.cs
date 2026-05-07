@@ -67,7 +67,8 @@ namespace Asagram
             CreateMap<Leave, AdminLeaveResponseDTO>()
                 .ForMember(dest => dest.Fullname, opt => opt.MapFrom(x => x.User.FirstName + " " + x.User.LastName));
             CreateMap<Leave, UserLeaveResponseDTO>();
-
+            CreateMap<OverTimeForCreateDTO, OverTime>();
+            CreateMap<OverTime, OverTimeResponseDTO>();
         }
     }
 }

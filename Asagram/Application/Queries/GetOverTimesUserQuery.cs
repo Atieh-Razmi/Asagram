@@ -7,6 +7,6 @@ using System.Text;
 
 namespace Application.Queries
 {
-    public record GetUserSideLeavesQuery(UserLeaveParameters userLeaveParameters) : IRequest<PagedList<UserLeaveResponseDTO>>;
+    public record GetOverTimesUserQuery(UserOverTimeParameters userOverTimeParameters) : IRequest<PagedList<UserOverTimeResponseDTO>>;
     
 }

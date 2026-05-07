@@ -23,6 +23,8 @@ namespace Application.Interfaces
         DbSet<Project> Projects { get; set; }
         DbSet<ProgramEntity> Programs { get; set; }
         DbSet<Leave> Leaves { get; set; }
+        DbSet<OverTime> OverTimes {  get; set; }
+       
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
         
     }
