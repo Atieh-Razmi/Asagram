@@ -35,5 +35,20 @@ namespace AsaGram.Presentiation.Controllers
             Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(results.MetaData));
             return Ok(new { Leaves = results, MetaData = results.MetaData });
         }
+
+        [HttpPost("{id:guid}")]
+        public async Task<IActionResult> UpdateOverTimeStatus(Guid id, [FromBody] OverTimeStatusDTO overTimeStatusDTO)
+        {
+            var overTime = await _sender.Send(new UpdateOverTimeStatusCommand(id, overTimeStatusDTO));
+            return Ok(overTime);
+        }
+
+        [HttpPost("{id:guid}/delete")]
+        public async Task<IActionResult> DeleteOverTime(Guid id)
+        {
+            var overTime = await _sender.Send(new DeleteOverTimeCommand(id));
+            return NoContent();
+        }
+
     }
 }
