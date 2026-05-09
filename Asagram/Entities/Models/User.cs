@@ -38,5 +38,6 @@ namespace Entities.Models
         public Guid? ProfileImageId { get; set; }
         public ICollection<Leave> Leaves { get; set; }
         public ICollection<OverTime> OverTimes { get; set; } = new List<OverTime>();
+        public ICollection<Report> Reports { get; set; } = new List<Report>();
     }
 }

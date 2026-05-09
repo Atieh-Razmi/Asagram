@@ -33,6 +33,8 @@ namespace Repository
         public DbSet<Leave> Leaves { get; set; }
 
         public DbSet<OverTime> OverTimes { get; set; }
+
+        public DbSet<Report> Reports { get; set; }
        
 
 
@@ -66,6 +68,7 @@ namespace Repository
             modelBuilder.ApplyConfiguration(new projectConfiguration());
             modelBuilder.ApplyConfiguration(new LeaveConfiguration());
             modelBuilder.ApplyConfiguration(new OverTimeConfiguration());
+            modelBuilder.ApplyConfiguration(new ReportConfiguration() );
             
 
         }

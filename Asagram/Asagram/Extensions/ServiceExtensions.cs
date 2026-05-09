@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Service;
 using System.Text;
 using Repository;
-//using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi.Models;
 
 
 
@@ -84,22 +84,22 @@ namespace Asagram.Extensions
                     Type = SecuritySchemeType.ApiKey,
                     Scheme = "Bearer"
                 });
-                //s.AddSecurityRequirement(new OpenApiSecurityRequirement()
-                //{
-                //    {
-                //        new OpenApiSecurityScheme
-                //        {
-                //            Reference = new OpenApiReference
-                //            {
-                //                    Type = ReferenceType.SecurityScheme,
-                //                    Id = "Bearer"
+                s.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                    Type = ReferenceType.SecurityScheme,
+                                    Id = "Bearer"
 
-                //            },
-                //            Name = "Bearer",
-                //        },
-                //        new List<string>()
-                //    }
-                //});
+                            },
+                            Name = "Bearer",
+                        },
+                        new List<string>()
+                    }
+                });
 
 
             });

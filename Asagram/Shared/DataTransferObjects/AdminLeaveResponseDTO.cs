@@ -7,6 +7,7 @@ namespace Shared.DataTransferObjects
 {
     public record AdminLeaveResponseDTO
     {
+        public Guid Id { get; set; }
         public string Fullname { get; set; } = null!;
         public LeaveTime LeaveTime { get; init; }
         public LeaveType LeaveType { get; init; }

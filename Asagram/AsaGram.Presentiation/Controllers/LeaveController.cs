@@ -44,5 +44,20 @@ namespace AsaGram.Presentiation.Controllers
             Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(results.MetaData));
             return Ok(new { Leaves = results, MetaData = results.MetaData });
         }
+
+        [HttpPost("{id:guid}")]
+        public async Task<IActionResult> UpdateLeaveStatus(Guid id, [FromBody] StatusDTO status)
+        {
+            var result = await _sender.Send(new UpdateLeaveStatusCommand(id, status));
+            return NoContent();
+        }
+
+        [HttpPost("{id:guid}/delete")]
+        public async Task<IActionResult> DeleteLeave(Guid id)
+        {
+            var leave = await _sender.Send(new DeleteLeaveCommand(id));
+            return NoContent();
+        }
+        
     }
 }
