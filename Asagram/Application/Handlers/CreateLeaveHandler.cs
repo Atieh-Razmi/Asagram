@@ -4,9 +4,11 @@ using AutoMapper;
 using Entities.Enums;
 using Entities.Models;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Shared.DataTransferObjects;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Application.Handlers
@@ -15,14 +17,25 @@ namespace Application.Handlers
     {
         private readonly IMapper _mapper;
         private readonly IRepositoryContext _repository;
-        public CreateLeaveHandler(IMapper mapper, IRepositoryContext repository)
+        private readonly ILeaveService _leaveService;
+        public CreateLeaveHandler(IMapper mapper, IRepositoryContext repository, ILeaveService leaveService)
         {
             _mapper = mapper;
             _repository = repository;
+            _leaveService = leaveService;
         }
         public async Task<LeaveResponseDTO> Handle(CreateLeaveCommand request, CancellationToken cancellationToken)
         {
+
+            var user = await _repository.Users
+               .Include(u => u.Unit)
+               .ThenInclude(u => u.ParentUnit)
+               .FirstOrDefaultAsync(u => u.Id == request.leaveDTO.UserId, cancellationToken);
+
             var leave = _mapper.Map<Leave>(request.leaveDTO);
+
+            
+
             if (leave.LeaveTime == LeaveTime.Hour)
 
                 leave.Duration = (decimal)(leave.ToDate - leave.FromDate).TotalHours;
@@ -30,6 +43,15 @@ namespace Application.Handlers
                 leave.Duration = (decimal)(leave.ToDate - leave.FromDate).TotalDays + 1;
 
             _repository.Leaves.Add(leave);
+
+            var steps = await _leaveService.GenerateLeaveStep(leave);
+
+            foreach (var step in steps)
+                leave.LeaveSteps.Add(step);
+
+
+
+
             await _repository.SaveChangesAsync(cancellationToken);
             return _mapper.Map<LeaveResponseDTO>(leave);
         }

@@ -44,7 +44,7 @@ namespace AsaGram.Presentiation.Controllers
             Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(results.MetaData));
             return Ok(new { Leaves = results, MetaData = results.MetaData });
         }
-
+        //post status admins
         [HttpPost("{id:guid}")]
         public async Task<IActionResult> UpdateLeaveStatus(Guid id, [FromBody] StatusDTO status)
         {

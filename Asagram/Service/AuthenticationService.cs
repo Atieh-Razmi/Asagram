@@ -216,12 +216,15 @@ namespace Asagram.Service
         {
             var registerUser = await _repository.Users.FirstOrDefaultAsync(u => u.UserName == user.UserName);
             if (registerUser != null)
-                throw new UserNotFoundException();
+                throw new Exception("user already exist.");
 
             if (user.Password != user.ConfirmPassword)
                 throw new NotEqualPasswordExeption();
 
             var hashPassword = HashPassword(user.Password);
+
+            
+
 
             var newUser = new User
             {
@@ -232,12 +235,16 @@ namespace Asagram.Service
                 PhoneNumber = user.PhoneNumber,
                 NationalCode = user.NationalCode,
                 Password = hashPassword,
-                UserUnit = user.UserUnit,
+                UnitId = user.UnitId,
                 Gender = user.Gender
             };
             //user.Id = newUser.Id;
+
+
+
             _repository.Users.Add(newUser);
             await _repository.SaveChangesAsync();
+
 
             var role = await _repository.Roles.FirstOrDefaultAsync(u=> u.RoleName == user.RoleName);
             if (role == null)

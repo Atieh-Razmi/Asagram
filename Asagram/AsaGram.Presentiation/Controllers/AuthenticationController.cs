@@ -61,5 +61,20 @@ namespace AsaGram.Presentiation.Controllers
             var result = await _sender.Send(new GetRolesQuery());
             return Ok(result);
         }
+
+        [HttpPost("CreateUnit")]
+        public async Task<IActionResult> CreateUnit([FromBody] CreateUnitDTO unit)
+        {
+            var result = await _sender.Send(new CreateUnitCommand(unit));
+            return Ok(result);
+        }
+
+        [HttpGet("units")]
+        public async Task<IActionResult> GetUnits()
+        {
+            var result = await _sender.Send(new GetUnitsQuery());
+            return Ok(result);
+        }
+
     }
 }

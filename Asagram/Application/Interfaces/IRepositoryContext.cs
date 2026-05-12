@@ -26,6 +26,9 @@ namespace Application.Interfaces
         DbSet<OverTime> OverTimes {  get; set; }
 
         DbSet<Report> Reports { get; set; }
+
+        DbSet<Unit> Units { get; set; }
+        DbSet<LeaveStep> LeaveSteps { get; set; }
        
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
         

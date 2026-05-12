@@ -37,6 +37,9 @@ namespace Asagram.Extensions
         public static void ConfigureFileService(this IServiceCollection services) =>
             services.AddScoped<IfileService, FileService>();
 
+        public static void ConfigureLeaveService(this IServiceCollection services) =>
+            services.AddScoped<ILeaveService, LeaveService>();
+
 
         public static void ConfigureJWT(this IServiceCollection services, IConfiguration configuration)
         {

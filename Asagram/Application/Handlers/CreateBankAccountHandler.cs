@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Application.Handlers
 {
-    public class CreateBankAccountHandler : IRequestHandler<CreateBankAccountCommand, Unit>
+    public class CreateBankAccountHandler : IRequestHandler<CreateBankAccountCommand, MediatR.Unit>
     {
         private readonly IMapper _mapper;
         private readonly IRepositoryContext _repository;
@@ -21,7 +21,7 @@ namespace Application.Handlers
             _repository = repository;
         }
 
-        public async Task<Unit> Handle(CreateBankAccountCommand request, CancellationToken cancellationToken)
+        public async Task<MediatR.Unit> Handle(CreateBankAccountCommand request, CancellationToken cancellationToken)
         {
             var findbank = await _repository.BankAccounts.FirstOrDefaultAsync(
                 e => e.Title == request.bankAccountDTO.Title);
@@ -31,7 +31,7 @@ namespace Application.Handlers
             _repository.BankAccounts.Add(bank);
             await _repository.SaveChangesAsync(cancellationToken);
             
-            return Unit.Value;
+            return MediatR.Unit.Value;
         }
     }
 }

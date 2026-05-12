@@ -11,7 +11,7 @@ using System.Text;
 
 namespace Application.Handlers
 {
-    public class UpdateProvinceHandler : IRequestHandler<UpdateProvinceCommand, Unit>
+    public class UpdateProvinceHandler : IRequestHandler<UpdateProvinceCommand, MediatR.Unit>
     {
         private readonly IRepositoryContext _repository;
         private readonly IMapper _mapper;
@@ -21,7 +21,7 @@ namespace Application.Handlers
             _mapper = mapper;
         }
 
-        public async Task<Unit> Handle(UpdateProvinceCommand request, CancellationToken cancellationToken)
+        public async Task<MediatR.Unit> Handle(UpdateProvinceCommand request, CancellationToken cancellationToken)
         {
             var province = await _repository.Provinces.FirstOrDefaultAsync(c => c.Id == request.id);
             if (province == null)
@@ -29,7 +29,7 @@ namespace Application.Handlers
 
             _mapper.Map(request.ProvinceDTO, province);
             await _repository.SaveChangesAsync(cancellationToken);
-            return Unit.Value;
+            return MediatR.Unit.Value;
 
         }
     }

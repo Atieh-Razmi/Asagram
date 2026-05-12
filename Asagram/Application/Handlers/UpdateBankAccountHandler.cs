@@ -11,7 +11,7 @@ using System.Text;
 
 namespace Application.Handlers
 {
-    public class UpdateBankAccountHandler : IRequestHandler<UpdateBankAccountCommand, Unit>
+    public class UpdateBankAccountHandler : IRequestHandler<UpdateBankAccountCommand, MediatR.Unit>
     {
         private readonly IMapper _mapper;
         private readonly IRepositoryContext _repository;
@@ -21,7 +21,7 @@ namespace Application.Handlers
             _repository = repository;
         }
 
-        public async Task<Unit> Handle(UpdateBankAccountCommand request, CancellationToken cancellationToken)
+        public async Task<MediatR.Unit> Handle(UpdateBankAccountCommand request, CancellationToken cancellationToken)
         {
             var bank = await _repository.BankAccounts.FirstOrDefaultAsync(e => e.Id == request.id);
             if (bank == null)
@@ -29,7 +29,7 @@ namespace Application.Handlers
 
             _mapper.Map(request.bankAccount, bank);
             await _repository.SaveChangesAsync(cancellationToken);
-            return Unit.Value;
+            return MediatR.Unit.Value;
 
         }
     }

@@ -7,6 +7,6 @@ namespace Shared.DataTransferObjects
 {
     public record StatusDTO
     {
-        public LeaveStatus Status { get; set; }
+        public LeaveStepStatus Status { get; set; }
     }
 }

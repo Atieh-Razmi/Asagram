@@ -23,7 +23,10 @@ namespace Entities.Models
 
         public string? NationalCode { get; set; }
 
-        public string? UserUnit { get; set; }
+        public Unit? Unit { get; set; } 
+        public Guid? UnitId { get; set; }
+
+        //public string? UserUnit { get; set; }
         public ICollection<UserRole> UserRoles { get; set; }
 
         public DateTime StartTime { get; set; }
@@ -39,5 +42,8 @@ namespace Entities.Models
         public ICollection<Leave> Leaves { get; set; }
         public ICollection<OverTime> OverTimes { get; set; } = new List<OverTime>();
         public ICollection<Report> Reports { get; set; } = new List<Report>();
+
+        public ICollection<Unit> ManagedUnits { get; set; } = new List<Unit>();
+
     }
 }

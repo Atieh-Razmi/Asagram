@@ -12,7 +12,7 @@ using System.Text;
 
 namespace Application.Handlers
 {
-    public class CreateProvinceHandler: IRequestHandler<CreateProvinceCommand, Unit>
+    public class CreateProvinceHandler: IRequestHandler<CreateProvinceCommand, MediatR.Unit>
     {
         private readonly IRepositoryContext _repository;
         private readonly IMapper _mapper;
@@ -22,7 +22,7 @@ namespace Application.Handlers
             _mapper = mapper;   
         }
 
-        public async Task<Unit> Handle(CreateProvinceCommand request, CancellationToken cancellationToken)
+        public async Task<MediatR.Unit> Handle(CreateProvinceCommand request, CancellationToken cancellationToken)
         {
             var provinse = await _repository.Provinces.FirstOrDefaultAsync(c => c.Name == request.provinceDTO.Name);
             if(provinse != null)
@@ -32,7 +32,7 @@ namespace Application.Handlers
             var province = _mapper.Map<Province>(request.provinceDTO);
             _repository.Provinces.Add(province);
             await _repository.SaveChangesAsync(cancellationToken);
-            return Unit.Value;
+            return MediatR.Unit.Value;
         }
     }
 }

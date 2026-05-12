@@ -11,6 +11,8 @@ using Service;
 
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.ConfigureCors();
+
 
 // Add services to the container.
 builder.Services.AddDbContext<RepositoryContext>(options => options.UseSqlServer(
@@ -26,6 +28,7 @@ builder.Services.ConfigureAuthService();
 builder.Services.ConfigureUserService();
 builder.Services.ConfigureRepositoryService();
 builder.Services.ConfigureFileService();
+builder.Services.ConfigureLeaveService();
 builder.Services.ConfigureSwagger();
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>),
@@ -44,6 +47,8 @@ if(app.Environment.IsProduction())
     app.UseHsts();
 
 app.UseHttpsRedirection();
+
+app.UseCors("CorsPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();

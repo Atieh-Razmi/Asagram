@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Entities.Enums;
 using Entities.Models;
 using Shared.DataTransferObjects;
 
@@ -64,15 +65,26 @@ namespace Asagram
             CreateMap<Project, ProjectResponseDTO>().ReverseMap();
             CreateMap<LeaveForCreateDTO, Leave>();
             CreateMap<Leave, LeaveResponseDTO>();
+
             CreateMap<Leave, AdminLeaveResponseDTO>()
                 .ForMember(dest => dest.Fullname, opt => opt.MapFrom(x => x.User.FirstName + " " + x.User.LastName));
-            CreateMap<Leave, UserLeaveResponseDTO>();
+            CreateMap<Leave, UserLeaveResponseDTO>()
+                .ForMember(dest => dest.LeaveStatus, opt => opt.MapFrom(
+                    x => x.LeaveSteps.All(s => s.LeaveStepStatus == LeaveStepStatus.Confirmed)
+                    ? LeaveStatus.Confirmed
+                    : x.LeaveSteps.Any(s => s.LeaveStepStatus == LeaveStepStatus.Cancelled)
+                    ? LeaveStatus.Cancelled
+                    : LeaveStatus.Checking
+                ));
+
             CreateMap<OverTimeForCreateDTO, OverTime>();
             CreateMap<OverTime, OverTimeResponseDTO>();
             CreateMap<Report, ReportForCreateDTO>().ReverseMap();
 
             CreateMap<Report, ReportDTO>()
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(x => x.User.FirstName + " " + x.User.LastName));
+
+            CreateMap<CreateUnitDTO, Unit>();
                 
         }
     }

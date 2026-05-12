@@ -16,7 +16,7 @@ namespace Application.Validators
             RuleFor(c => c.FirstName).NotEmpty().MaximumLength(50);
             RuleFor(c => c.LastName).NotEmpty().MaximumLength(50);
             RuleFor(c => c.ConfirmPassword).NotEmpty().MaximumLength(50);
-            RuleFor(c => c.UserUnit).NotEmpty().MaximumLength(50);
+            
 
         }
     }

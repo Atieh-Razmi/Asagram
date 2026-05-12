@@ -19,10 +19,12 @@ namespace Entities.Models
         public decimal Duration { get; set; }
         public LeaveStatus LeaveStatus { get; set; } = LeaveStatus.Checking;
 
-        public User User { get; set; }
+        public required User User { get; set; } 
         public Guid UserId { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        //utc????
         public DateTime? UpdatedAt { get; set; }
+        public ICollection<LeaveStep> LeaveSteps { get; set; } = new List<LeaveStep>();
     }
 }

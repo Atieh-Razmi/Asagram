@@ -28,8 +28,8 @@ namespace Shared.DataTransferObjects
         public string? NationalCode { get; set; }
         public Gender? Gender { get; set; }
         [Required(ErrorMessage = "UserUnit is Required.")]
-        [MaxLength(50)]
-        public string? UserUnit { get; set; }
+        
+        public Guid UnitId{ get; set; }
 
         public string? RoleName { get; set; }
         [Required(ErrorMessage = "Password is Required.")]

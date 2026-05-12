@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Application.Handlers
 {
-    public class UpdateUserHandler: IRequestHandler<UpdateUserCommand, Unit>
+    public class UpdateUserHandler: IRequestHandler<UpdateUserCommand, MediatR.Unit>
     {
         private readonly IMapper _mapper;
         private readonly IRepositoryContext _repository;       
@@ -20,7 +20,7 @@ namespace Application.Handlers
             _repository = repository;
         }
 
-        public async Task<Unit> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+        public async Task<MediatR.Unit> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
             var user = _repository.Users.FirstOrDefault(u => u.Id == request.Id);
 
@@ -29,7 +29,7 @@ namespace Application.Handlers
 
             _mapper.Map(request.UserForUpdate, user);
             await _repository.SaveChangesAsync(cancellationToken);
-            return Unit.Value;
+            return MediatR.Unit.Value;
             
         }
     }

@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Application.Handlers
 {
-    public class CreateCityHandler : IRequestHandler<CreateCityCommand, Unit>
+    public class CreateCityHandler : IRequestHandler<CreateCityCommand, MediatR.Unit>
     {
         private readonly IRepositoryContext _repository;
         private readonly IMapper _mapper;
@@ -20,7 +20,7 @@ namespace Application.Handlers
             _repository = repository;
             _mapper = mapper;
         }
-        public async Task<Unit> Handle(CreateCityCommand request, CancellationToken cancellationToken)
+        public async Task<MediatR.Unit> Handle(CreateCityCommand request, CancellationToken cancellationToken)
         {
             //var province = await _repository.Provinces.FirstOrDefaultAsync(e => e.Id == request.cityDTO.ProvinceId);
             //if (province == null)
@@ -36,7 +36,7 @@ namespace Application.Handlers
             city = _mapper.Map<City>(request.cityDTO);
             await _repository.Cities.AddAsync(city);
             await _repository.SaveChangesAsync(cancellationToken);
-            return Unit.Value;
+            return MediatR.Unit.Value;
         }
 
        
