@@ -7,6 +7,6 @@ namespace Shared.DataTransferObjects
 {
     public record OverTimeStatusDTO
     {
-        public OverTimeStatus OverTimeStatus { get; set; }
+        public OverTimeStepStatus OverTimeStatus { get; set; }
     }
 }

@@ -25,7 +25,7 @@ namespace Application.Handlers
         public async Task<PagedList<UserOverTimeResponseDTO>> Handle(GetOverTimesUserQuery request, CancellationToken cancellationToken)
         {
             var userId = _currentUserService.UserId;
-            var query = _repository.OverTimes.Where(c => c.UserId == userId).AsNoTracking();
+            var query = _repository.OverTimes.Where(c => c.UserId == userId).Include(c=>c.Project).AsNoTracking();
             //.FilterUserOverTimes(request.userOverTimeParameters);
             var count = await query.CountAsync();
             var overtimes = await query.Skip((request.userOverTimeParameters.PageNumber - 1) * request.userOverTimeParameters.PageSize)

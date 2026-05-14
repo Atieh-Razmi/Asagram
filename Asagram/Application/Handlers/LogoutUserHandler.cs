@@ -25,11 +25,14 @@ namespace Application.Handlers
             var user = await _repository.Users.FirstOrDefaultAsync(e => e.Id == userId);
             if (user == null)
                 throw new UserNotFoundException();
+            var workLog = await _repository.WorkLogs.FirstOrDefaultAsync(c => c.UserId == userId && c.Date == DateTime.Today);
+            if (workLog == null)
+                throw new Exception("User has not checked in today");
 
 
             user.RefreshToken = null;
             user.RefreshTokenExpiryTime = default;
-            user.EndTime = DateTime.Now;
+            workLog.EndTime = DateTime.Now;
             user.Status = false;
             await _repository.SaveChangesAsync(cancellationToken);
             return Unit.Value;

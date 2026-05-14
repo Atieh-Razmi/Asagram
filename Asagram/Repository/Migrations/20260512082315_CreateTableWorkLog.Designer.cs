@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository;
 
@@ -11,9 +12,11 @@ using Repository;
 namespace Repository.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20260512082315_CreateTableWorkLog")]
+    partial class CreateTableWorkLog
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -281,36 +284,6 @@ namespace Repository.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("OverTimes", (string)null);
-                });
-
-            modelBuilder.Entity("Entities.Models.OverTimeStep", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("ApproverId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("OverTimeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("OverTimeStepNumber")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OverTimeStepStatus")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApproverId");
-
-                    b.HasIndex("OverTimeId");
-
-                    b.ToTable("OverTimeSteps");
                 });
 
             modelBuilder.Entity("Entities.Models.PhoneNumbers", b =>
@@ -660,23 +633,6 @@ namespace Repository.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Entities.Models.OverTimeStep", b =>
-                {
-                    b.HasOne("Entities.Models.User", "Approver")
-                        .WithMany()
-                        .HasForeignKey("ApproverId");
-
-                    b.HasOne("Entities.Models.OverTime", "OverTime")
-                        .WithMany("OverTimeSteps")
-                        .HasForeignKey("OverTimeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Approver");
-
-                    b.Navigation("OverTime");
-                });
-
             modelBuilder.Entity("Entities.Models.PhoneNumbers", b =>
                 {
                     b.HasOne("Entities.Models.Contact", "Contact")
@@ -807,11 +763,6 @@ namespace Repository.Migrations
             modelBuilder.Entity("Entities.Models.Leave", b =>
                 {
                     b.Navigation("LeaveSteps");
-                });
-
-            modelBuilder.Entity("Entities.Models.OverTime", b =>
-                {
-                    b.Navigation("OverTimeSteps");
                 });
 
             modelBuilder.Entity("Entities.Models.Project", b =>

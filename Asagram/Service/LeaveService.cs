@@ -37,5 +37,31 @@ namespace Service
 
             return Task.FromResult(steps); 
         }
+
+        public Task<List<OverTimeStep>> GenerateOverTimeStep(OverTime overTime)
+        {
+            var steps = new List<OverTimeStep>();
+            int stepNumber = 1;
+
+            var currentUnit = overTime.User.Unit;
+            while (currentUnit != null)
+            {
+                if (currentUnit.ManagerId != null && overTime.UserId != currentUnit.ManagerId)
+                {
+                    steps.Add(new OverTimeStep
+                    {
+                        OverTime = overTime,
+                        OverTimeId = overTime.Id,
+                        OverTimeStepNumber = stepNumber,
+                        ApproverId = currentUnit.ManagerId,
+                        OverTimeStepStatus = OverTimeStepStatus.Checking,
+                        Date = DateTime.Now,
+                    });
+                    stepNumber++;
+                }
+                currentUnit = currentUnit.ParentUnit;
+            }
+            return Task.FromResult(steps);
+        }
     }
 }

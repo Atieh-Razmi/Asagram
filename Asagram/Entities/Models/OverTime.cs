@@ -20,6 +20,7 @@ namespace Entities.Models
         public DateTime Date {  get; set; }
         public double Duration { get; set; }
         public OverTimeStatus OverTimeStatus { get; set; } = OverTimeStatus.Checking;
+        public ICollection<OverTimeStep> OverTimeSteps { get; set; } = new List<OverTimeStep>();
 
     }
 }

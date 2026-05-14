@@ -8,5 +8,7 @@ namespace Application.Interfaces
     public interface ILeaveService
     {
         Task<List<LeaveStep>> GenerateLeaveStep(Leave leave);
+
+        Task<List<OverTimeStep>> GenerateOverTimeStep(OverTime overTime);
     }
 }

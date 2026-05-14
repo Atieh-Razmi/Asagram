@@ -44,6 +44,7 @@ namespace Entities.Models
         public ICollection<Report> Reports { get; set; } = new List<Report>();
 
         public ICollection<Unit> ManagedUnits { get; set; } = new List<Unit>();
+        public ICollection<WorkLog> WorkLogs { get; set; } = new List<WorkLog>(); 
 
     }
 }

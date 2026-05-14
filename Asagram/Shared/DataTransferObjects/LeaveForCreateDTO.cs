@@ -12,6 +12,6 @@ namespace Shared.DataTransferObjects
         public string? Description { get; init; }
         public DateTime FromDate { get; init; }
         public DateTime ToDate { get; init; }
-        public Guid UserId { get; init; }
+        //public Guid UserId { get; init; }
     }
 }

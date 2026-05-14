@@ -23,9 +23,9 @@ namespace Application.Handlers
 
             var leave = await _repository.Leaves.FirstOrDefaultAsync(c => c.Id == request.id);
 
-            var leavesteps = _repository.LeaveSteps.FirstOrDefault(c => c.LeaveId == leave.Id);
+            
             var user = _currentUserService.UserId;
-            var leaveStep  = await _repository.LeaveSteps.FirstOrDefaultAsync(c => c.ApproverId == user);
+            var leaveStep  = await _repository.LeaveSteps.FirstOrDefaultAsync(c => c.ApproverId == user && c.LeaveId == leave.Id);
             if(leaveStep != null)
             {
                 leaveStep.LeaveStepStatus = request.status.Status;

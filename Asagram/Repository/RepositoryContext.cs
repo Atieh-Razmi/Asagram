@@ -38,7 +38,8 @@ namespace Repository
         public DbSet<Unit> Units { get; set; }
         public DbSet<LeaveStep> LeaveSteps { get; set; }
        
-
+        public DbSet<WorkLog> WorkLogs { get; set; }
+        public DbSet<OverTimeStep> OverTimeSteps { get; set; }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         => base.SaveChangesAsync(cancellationToken);

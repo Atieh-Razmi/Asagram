@@ -33,8 +33,19 @@ namespace AsaGram.Presentiation.Controllers
         {
             var results = await _sender.Send(new GetOverTimesUserQuery(userOverTimeParameters));
             Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(results.MetaData));
-            return Ok(new { Leaves = results, MetaData = results.MetaData });
+            return Ok(new { OverTimes = results, MetaData = results.MetaData });
         }
+
+        [HttpGet("admin-side")]
+        public async Task<IActionResult> GetOverTimesAdmin([FromQuery] AdminOverTimeParameters adminOverTimeParameters)
+        {
+            var results = await _sender.Send(new GetOverTimesAdminQuery(adminOverTimeParameters));
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(results.MetaData));
+            return Ok(new { OverTimes = results, MetaData = results.MetaData });
+        }
+
+
+
 
         [HttpPost("{id:guid}")]
         public async Task<IActionResult> UpdateOverTimeStatus(Guid id, [FromBody] OverTimeStatusDTO overTimeStatusDTO)

@@ -1,4 +1,5 @@
 ﻿using Application.Commands;
+using Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -22,6 +23,13 @@ namespace AsaGram.Presentiation.Controllers
         {
             var result = await _sender.Send(new CreateCheckInCommand());
             return Ok(result);
+        }
+
+        [HttpGet("userinfo")]
+        public async Task<IActionResult> GetUserInfo()
+        {
+            var user = await _sender.Send(new GetUserInfoQuery());
+            return Ok(user);
         }
     }
 }

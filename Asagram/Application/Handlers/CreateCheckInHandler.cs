@@ -20,9 +20,16 @@ namespace Application.Handlers
         public async Task<Unit> Handle(CreateCheckInCommand request, CancellationToken cancellationToken)
         {
             var userId = _currentUserService.UserId;
-            //var userId = Guid.Parse("2127ace2-373e-45ec-b5bf-fc81b73d2871");
-            var user = await _repository.Users.FirstOrDefaultAsync(c=>c.Id == userId);
-            user.StartTime = DateTime.Now;
+            var worklog = new Entities.Models.WorkLog
+            {
+                UserId = userId,
+                StartTime = DateTime.Now,
+                Date = DateTime.Today
+            };
+
+            
+            _repository.WorkLogs.Add(worklog);
+            
             await _repository.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }

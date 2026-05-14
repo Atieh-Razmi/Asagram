@@ -18,22 +18,25 @@ namespace Application.Handlers
         private readonly IMapper _mapper;
         private readonly IRepositoryContext _repository;
         private readonly ILeaveService _leaveService;
-        public CreateLeaveHandler(IMapper mapper, IRepositoryContext repository, ILeaveService leaveService)
+        private readonly ICurrentUserService _currentUserService;
+        public CreateLeaveHandler(IMapper mapper, IRepositoryContext repository, ILeaveService leaveService,
+            ICurrentUserService currentUserService)
         {
             _mapper = mapper;
             _repository = repository;
             _leaveService = leaveService;
+            _currentUserService = currentUserService;
         }
         public async Task<LeaveResponseDTO> Handle(CreateLeaveCommand request, CancellationToken cancellationToken)
         {
-
+            var currentUser = _currentUserService.UserId;
             var user = await _repository.Users
                .Include(u => u.Unit)
                .ThenInclude(u => u.ParentUnit)
-               .FirstOrDefaultAsync(u => u.Id == request.leaveDTO.UserId, cancellationToken);
+               .FirstOrDefaultAsync(u => u.Id == currentUser, cancellationToken);
 
             var leave = _mapper.Map<Leave>(request.leaveDTO);
-
+            leave.UserId = currentUser;
             
 
             if (leave.LeaveTime == LeaveTime.Hour)
