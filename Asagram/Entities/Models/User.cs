@@ -1,5 +1,6 @@
 ﻿using Entities.Enums;
 using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Entities.Models
 {
     public class User
     {
-        public Guid  Id {  get; set; }
+        public Guid  Id { get; set; }
 
         public string? UserName { get; set; }
         public string? Password { get; set; }
@@ -27,6 +28,7 @@ namespace Entities.Models
         public Guid? UnitId { get; set; }
 
         //public string? UserUnit { get; set; }
+        [JsonIgnore]
         public ICollection<UserRole> UserRoles { get; set; }
 
         public DateTime StartTime { get; set; }

@@ -1,6 +1,7 @@
 ﻿using Application.Commands;
 using Application.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.DataTransferObjects;
 using Shared.RequestFeatures;
@@ -37,6 +38,8 @@ namespace AsaGram.Presentiation.Controllers
         }
 
         [HttpGet("admin-side")]
+        //[Authorize(Roles = "admin")]
+        
         public async Task<IActionResult> GetOverTimesAdmin([FromQuery] AdminOverTimeParameters adminOverTimeParameters)
         {
             var results = await _sender.Send(new GetOverTimesAdminQuery(adminOverTimeParameters));

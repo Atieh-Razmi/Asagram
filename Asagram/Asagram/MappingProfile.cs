@@ -10,12 +10,16 @@ namespace Asagram
         public MappingProfile()
         {
             CreateMap<User, UserDTO>()
-            .ForCtorParam("FullName",
-                opt => opt.MapFrom(x => x.FirstName + " " + x.LastName))
+            //.ForCtorParam("FullName",
+            //    opt => opt.MapFrom(x => x.FirstName + " " + x.LastName))
+              .ForMember(dest => dest.FullName, opt => opt.MapFrom(x => x.FirstName + " " + x.LastName))
 
-            .ForCtorParam("RoleName",
-                opt => opt.MapFrom(src =>
-                    string.Join(", ", src.UserRoles.Select(x => x.Role.RoleName))));
+
+            //.ForCtorParam("RoleName",
+            //    opt => opt.MapFrom(src =>
+            //        string.Join(", ", src.UserRoles.Select(x => x.Role.RoleName))));
+            .ForMember(dest => dest.RoleName, opt => opt.MapFrom(x => x.UserRoles.Select(s => s.Role.RoleName).FirstOrDefault()));
+
 
             //.ForCtorParam("Status",
             //    opt => opt.MapFrom(src => src.RefreshTokenExpiryTime > DateTime.Now));
@@ -23,6 +27,7 @@ namespace Asagram
             CreateMap<User, UserPasswordDTO>();
             CreateMap<UserForUpdateDTO, User>().ReverseMap();
             CreateMap<UserForRegistrationDTO, User>();
+                
             CreateMap<Province, ProvinceDTO>().ReverseMap();
             CreateMap<CreateCityDTO, City>();
 
@@ -62,6 +67,7 @@ namespace Asagram
             CreateMap<User, ProfileDTO>();
             CreateMap<Province, ProvinceresponseDTO>();
             CreateMap<Role, RoleDTO>().ReverseMap();
+            CreateMap<Role, RoleResponseDTO>();
             CreateMap<Project, ProjectResponseDTO>().ReverseMap();
             CreateMap<LeaveForCreateDTO, Leave>();
             CreateMap<Leave, LeaveResponseDTO>();
@@ -108,6 +114,8 @@ namespace Asagram
                 .ForMember(dest => dest.roleName, opt => opt.MapFrom(x => x.UserRoles.Select(s => s.Role.RoleName).FirstOrDefault()))
                 .ForMember(dest => dest.unitName, opt => opt.MapFrom(x => x.Unit.Name))
                 .ForMember(dest => dest.RoleId, opt => opt.MapFrom(x => x.UserRoles.Select(s => s.RoleId).FirstOrDefault()));
+
+            CreateMap<UpdateUnitDTO, Unit>();
 
 
         }

@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces;
 using Entities.Enums;
 using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +10,11 @@ namespace Service
 {
     public class LeaveService : ILeaveService
     {
+        private readonly IRepositoryContext _repository;
+        public LeaveService(IRepositoryContext repository)
+        {
+            _repository = repository;    
+        }
         public Task<List<LeaveStep>> GenerateLeaveStep(Leave leave)
         {
             var steps = new List<LeaveStep>();
@@ -62,6 +68,16 @@ namespace Service
                 currentUnit = currentUnit.ParentUnit;
             }
             return Task.FromResult(steps);
+        }
+
+        public async Task SetEndTimeWorkLogs()
+        {
+            var workLogs = await _repository.WorkLogs.Where(c => c.EndTime == null).ToListAsync();
+            foreach(var workLog in workLogs)
+            {
+                workLog.EndTime = workLog.Date.Date.AddHours(23).AddMinutes(59);
+            }
+            await _repository.SaveChangesAsync();
         }
     }
 }

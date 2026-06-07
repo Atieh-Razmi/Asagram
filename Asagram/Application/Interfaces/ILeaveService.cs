@@ -10,5 +10,7 @@ namespace Application.Interfaces
         Task<List<LeaveStep>> GenerateLeaveStep(Leave leave);
 
         Task<List<OverTimeStep>> GenerateOverTimeStep(OverTime overTime);
+
+        Task SetEndTimeWorkLogs();
     }
 }

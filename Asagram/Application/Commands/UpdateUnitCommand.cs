@@ -4,8 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Application.Queries
+namespace Application.Commands
 {
-    public record GetRolesQuery() : IRequest<IEnumerable<RoleResponseDTO>>;
+    public record UpdateUnitCommand(Guid id, UpdateUnitDTO unitDTO) : IRequest<Unit>;
     
 }

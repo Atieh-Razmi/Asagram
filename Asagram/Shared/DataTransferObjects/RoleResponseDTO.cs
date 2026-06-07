@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Text.Json.Serialization;
 
-namespace Entities.Models
+namespace Shared.DataTransferObjects
 {
-    public class Role
+    public record RoleResponseDTO
     {
         public Guid Id { get; set; }
         public string? RoleName { get; set; }
-        [JsonIgnore]
-        public ICollection<UserRole> UserRoles { get; set; }
-
     }
 }

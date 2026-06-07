@@ -26,7 +26,8 @@ namespace Service
 
         public async Task<PagedList<User>> GetAllUsersAsync(UserParameters userParameters, bool TrackChanges)
         {
-            var query = TrackChanges ? _repository.Users : _repository.Users.AsNoTracking();
+            var query = TrackChanges ? _repository.Users.Include(c => c.UserRoles).ThenInclude(c => c.Role)
+                : _repository.Users.Include(c=>c.UserRoles).ThenInclude(c=>c.Role).AsNoTracking();
             query = query.FilterUser(userParameters).Search(userParameters.SearchTerm);
             var count = await query.CountAsync();
             var users = await query.Skip((userParameters.PageNumber - 1) * userParameters.PageSize)

@@ -212,7 +212,7 @@ namespace Asagram.Service
             return await CreateToken(populateExp: false);
         }
 
-        public async Task<UserForRegistrationDTO> RegisterUser(UserForRegistrationDTO user)
+        public async Task<User> RegisterUser(UserForRegistrationDTO user)
         {
             var registerUser = await _repository.Users.FirstOrDefaultAsync(u => u.UserName == user.UserName);
             if (registerUser != null)
@@ -246,9 +246,9 @@ namespace Asagram.Service
             await _repository.SaveChangesAsync();
 
 
-            var role = await _repository.Roles.FirstOrDefaultAsync(u=> u.RoleName == user.RoleName);
+            var role = await _repository.Roles.FirstOrDefaultAsync(u=> u.Id == user.RoleId);
             if (role == null)
-                throw new Exception("Invalid role name.");
+                throw new Exception("Invalid role.");
 
 
             _repository.UserRoles.Add(new UserRole
@@ -259,7 +259,7 @@ namespace Asagram.Service
             await _repository.SaveChangesAsync();
 
 
-            return user;
+            return newUser;
         }
         
     }

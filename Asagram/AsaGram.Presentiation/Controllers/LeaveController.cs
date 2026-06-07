@@ -1,6 +1,7 @@
 ﻿using Application.Commands;
 using Application.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.DataTransferObjects;
 using Shared.RequestFeatures;
@@ -29,6 +30,7 @@ namespace AsaGram.Presentiation.Controllers
         }
 
         [HttpGet("admin-page")]
+        [Authorize(Roles ="admin")]
         public async Task<IActionResult> GetLeaves([FromQuery]AdminLeaveParameters adminLeaveParameters)
         {
             var results = await _sender.Send(new GetAdminLeavesQuery(adminLeaveParameters));

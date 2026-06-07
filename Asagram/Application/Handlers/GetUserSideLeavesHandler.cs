@@ -4,6 +4,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Shared.DataTransferObjects;
+using Shared.Extensions;
 using Shared.RequestFeatures;
 using System;
 using System.Collections.Generic;
@@ -25,8 +26,11 @@ namespace Application.Handlers
         public async Task<PagedList<UserLeaveResponseDTO>> Handle(GetUserSideLeavesQuery request, CancellationToken cancellationToken)
         {
             var userId = _currentUserService.UserId;
-            var query = _repository.Leaves.Where(c => c.UserId == userId).Include(c=>c.LeaveSteps).AsNoTracking();
-            //.FilterUserLeaves(request.userLeaveParameters);
+            if (userId == null)
+                throw new Exception("please login first.");
+
+            var query = _repository.Leaves.Where(c => c.UserId == userId).Include(c => c.LeaveSteps).AsNoTracking()
+            .FilterUserLeaves(request.userLeaveParameters);
             var count = await query.CountAsync();
             var leaves = await query.Skip((request.userLeaveParameters.PageNumber - 1) * request.userLeaveParameters.PageSize)
                 .Take(request.userLeaveParameters.PageSize)

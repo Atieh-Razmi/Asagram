@@ -20,12 +20,20 @@ namespace Application.Handlers
         public async Task<Unit> Handle(CreateCheckInCommand request, CancellationToken cancellationToken)
         {
             var userId = _currentUserService.UserId;
+            if (userId == null)
+                throw new Exception("please login first.");
+
+            var exitWorkLog = await _repository.WorkLogs.FirstOrDefaultAsync(c=>c.UserId == userId && c.Date == DateTime.Today);
+            if (exitWorkLog != null)
+                throw new Exception("you already have checkIn.");
+
             var worklog = new Entities.Models.WorkLog
             {
                 UserId = userId,
                 StartTime = DateTime.Now,
                 Date = DateTime.Today
             };
+            
 
             
             _repository.WorkLogs.Add(worklog);

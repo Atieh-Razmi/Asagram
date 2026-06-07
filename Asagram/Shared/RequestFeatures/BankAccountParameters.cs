@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Shared.RequestFeatures
 {
-    public class BankAccountParameters
+    public class BankAccountParameters : RequestParameters
     {
     }
 }

@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Application.Handlers
 {
-    public class GetRolesHandler : IRequestHandler<GetRolesQuery, IEnumerable<RoleDTO>>
+    public class GetRolesHandler : IRequestHandler<GetRolesQuery, IEnumerable<RoleResponseDTO>>
     {
         private readonly IRepositoryContext _repository;
         private readonly IMapper _mapper;
@@ -19,11 +19,11 @@ namespace Application.Handlers
             _repository = repository;
             _mapper = mapper;
         }
-        public async Task<IEnumerable<RoleDTO>> Handle(GetRolesQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<RoleResponseDTO>> Handle(GetRolesQuery request, CancellationToken cancellationToken)
         {
             var roles = await _repository.Roles.ToListAsync(cancellationToken);
 
-            return _mapper.Map<IEnumerable<RoleDTO>>(roles);
+            return _mapper.Map<IEnumerable<RoleResponseDTO>>(roles);
         }
     }
 }

@@ -31,7 +31,8 @@ namespace Shared.DataTransferObjects
         
         public Guid UnitId{ get; set; }
 
-        public string? RoleName { get; set; }
+        //public string? RoleName { get; set; }
+        public Guid ? RoleId { get; set; }
         [Required(ErrorMessage = "Password is Required.")]
 
         public string? Password { get; set; }

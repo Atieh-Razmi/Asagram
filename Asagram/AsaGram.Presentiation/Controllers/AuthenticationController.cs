@@ -76,5 +76,12 @@ namespace AsaGram.Presentiation.Controllers
             return Ok(result);
         }
 
+        [HttpPost("{id:guid}/editUnit")]
+        public async Task<IActionResult> UpdateUnit(Guid id, [FromBody] UpdateUnitDTO unitDTO)
+        {
+            var result = await _sender.Send(new UpdateUnitCommand(id, unitDTO));
+            return NoContent();
+        }
+
     }
 }
